@@ -1,29 +1,37 @@
 import styled from "styled-components"
+import axios from "axios";
+import { useEffect } from "react";
+/* import { useState } from "react"; */
+export default function HomePage(props) {
+    const {setMovies, movies} = props
+    useEffect(() => {
+        const url = 'https://mock-api.driven.com.br/api/v8/cineflex/movies'
+		const requisicao = axios.get(url);
 
-export default function HomePage() {
+        requisicao.then(resposta => {
+
+            setMovies(resposta.data);
+
+		});
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    if(movies.length === 0) {
+		return "Carregando...."
+	}
     return (
-        <PageContainer>
-            Selecione o filme
-
+        <>
+            <PageContainer>            Selecione o filme
             <ListContainer>
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
+        {movies.map((movies) => ( 
+        (
+           
+            <MovieContainer key={movies.key}>
+                    <img src={movies.posterURL} alt={movies.title} />
+        </MovieContainer>
+       )))}
             </ListContainer>
-
-        </PageContainer>
+                </PageContainer>
+                </>
     )
 }
 
