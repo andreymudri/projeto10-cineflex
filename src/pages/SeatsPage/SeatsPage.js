@@ -19,7 +19,7 @@ export default function SeatsPage(props) {
   const reserva = {
     ids: selected,
     name: nome,
-    cpf: cpf,
+    cpf: cpf
   };
 
   useEffect(() => {
