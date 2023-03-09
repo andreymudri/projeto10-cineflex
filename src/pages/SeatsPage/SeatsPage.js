@@ -5,7 +5,6 @@ import { useParams, Link } from 'react-router-dom';
 export default function SeatsPage(props) {
     const {selected, setSelected, setNome, setCpf,nome,cpf,seats, setSeats, poltrona, setPoltrona } = props
     const { idSessao } = useParams();
-    let nomezinho, cpfzinho;
     const reserva = {
         ids: selected,
         name: nome,
@@ -48,9 +47,9 @@ export default function SeatsPage(props) {
                 setPoltrona(poltrona.filter((poltrona) => poltrona !== banco))
             } else {
                 setSelected([...selected, seatId]);
-                setPoltrona([...poltrona, banco])
+                setPoltrona([...poltrona, banco]);
             }
-        } else alert("assento já escolhido");
+        } else {alert("assento já escolhido");}
         
     }
 
