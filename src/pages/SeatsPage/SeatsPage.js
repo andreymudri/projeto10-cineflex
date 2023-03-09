@@ -1,51 +1,107 @@
 import styled from "styled-components"
+import axios from "axios";
+import { useEffect } from "react";
+import { useParams, Link } from 'react-router-dom';
+export default function SeatsPage(props) {
+    const {selected, setSelected, setNome, setCpf,nome,cpf,seats, setSeats, poltrona, setPoltrona } = props
+    const {idSessao} = useParams();
+    const reserva = {
+        ids: selected,
+        name: nome,
+        cpf: cpf
+    }
+    
+    useEffect(() => {
+        console.log("selected seats:", selected);
+      }, [selected]);
+    useEffect(() => {
+        const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`;
+        const requisicao = axios.get(url);
+    
+        requisicao.then(resposta => {
+            setSeats(resposta.data);
+    
+        });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    function handlereservation() {
+        console.log(reserva)
+            const url = `https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many`;
+            const requisicao = axios.post(url, reserva);
+        
+            requisicao.then(resposta => {
+                console.log(resposta.data);
+            });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
 
-export default function SeatsPage() {
+    }
+
+    if(seats.length === 0) {
+		return "Carregando...."
+    }
+    function handleseat(seatId, assento,banco) {
+        if (assento){
+        if (selected.includes(seatId)) {
+            setSelected(selected.filter((id) => id !== seatId));
+            setPoltrona(selected.filter((poltrona) => poltrona !== banco))
+        } else {
+            setSelected([...selected, seatId]);
+            setPoltrona([...poltrona, banco])
+            }
+        }
+        
+    }
 
     return (
         <PageContainer>
             Selecione o(s) assento(s)
 
             <SeatsContainer>
-                <SeatItem>01</SeatItem>
-                <SeatItem>02</SeatItem>
-                <SeatItem>03</SeatItem>
-                <SeatItem>04</SeatItem>
-                <SeatItem>05</SeatItem>
+            {seats.seats.map((assento, index) => ( 
+                (<SeatItem className={
+                    selected.includes(assento.id)
+                      ? "selected"
+                      : assento.isAvailable
+                      ? "available"
+                      : "unavailable"
+                  } key={index} disabled={!assento.isAvailable} onClick={() => handleseat(assento.id, assento.isAvailable, assento.name)} >{assento.name}</SeatItem>
+
+       )))}
+
             </SeatsContainer>
 
             <CaptionContainer>
-                <CaptionItem>
-                    <CaptionCircle />
+                <CaptionItem >
+                    <CaptionCircle className={'selected'} />
                     Selecionado
                 </CaptionItem>
-                <CaptionItem>
-                    <CaptionCircle />
+                <CaptionItem >
+                    <CaptionCircle className={'available'} />
                     Disponível
                 </CaptionItem>
                 <CaptionItem>
-                    <CaptionCircle />
+                    <CaptionCircle className={'unavailable'}/>
                     Indisponível
                 </CaptionItem>
             </CaptionContainer>
 
             <FormContainer>
                 Nome do Comprador:
-                <input placeholder="Digite seu nome..." />
+                <input placeholder="Digite seu nome..." onChange={e => setNome(e.target.value)}/>
 
                 CPF do Comprador:
-                <input placeholder="Digite seu CPF..." />
+                <input placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)}/>
 
-                <button>Reservar Assento(s)</button>
+                <Link to='/'></Link><button onClick={()=> handlereservation()}>Reservar Assento(s)</button><Link/>
             </FormContainer>
 
             <FooterContainer>
                 <div>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
+                    <img src={seats.movie.posterURL} alt="poster" />
                 </div>
                 <div>
-                    <p>Tudo em todo lugar ao mesmo tempo</p>
-                    <p>Sexta - 14h00</p>
+                    <p>{seats.movie.title}</p>
+                    <p>{seats.day.weekday} - {seats.name }</p>
                 </div>
             </FooterContainer>
 
@@ -96,6 +152,7 @@ const CaptionContainer = styled.div`
     margin: 20px;
 `
 const CaptionCircle = styled.div`
+
     border: 1px solid blue;         // Essa cor deve mudar
     background-color: lightblue;    // Essa cor deve mudar
     height: 25px;
@@ -105,6 +162,19 @@ const CaptionCircle = styled.div`
     align-items: center;
     justify-content: center;
     margin: 5px 3px;
+    &.available{
+        background-color: #C3CFD9;
+        border: 1px solid #7B8B99;
+    }
+    &.unavailable{
+        background-color: #FBE192;
+        border: 1px solid #F7C52B;
+    }
+    &.selected{
+        background-color: #1AAE9E;
+        border: 1px solid #0E7D71;
+    }
+
 `
 const CaptionItem = styled.div`
     display: flex;
@@ -124,6 +194,18 @@ const SeatItem = styled.div`
     align-items: center;
     justify-content: center;
     margin: 5px 3px;
+    &.available{
+        background-color: #C3CFD9;
+        border: 1px solid #7B8B99;
+    }
+    &.unavailable{
+        background-color: #FBE192;
+        border: 1px solid #F7C52B;
+    }
+    &.selected{
+        background-color: #1AAE9E;
+        border: 1px solid #0E7D71;
+    }
 `
 const FooterContainer = styled.div`
     width: 100%;

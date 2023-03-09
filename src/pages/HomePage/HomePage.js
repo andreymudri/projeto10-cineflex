@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import axios from "axios";
 import { useEffect } from "react";
+import { Link } from 'react-router-dom';
 /* import { useState } from "react"; */
 export default function HomePage(props) {
     const {setMovies, movies} = props
@@ -26,7 +27,10 @@ export default function HomePage(props) {
         (
            
             <MovieContainer key={movies.key}>
-                    <img src={movies.posterURL} alt={movies.title} />
+                    <Link to={`/sessoes/${movies.id}`}>
+                        <img src={movies.posterURL} alt={movies.title} />
+                        </Link>
+
         </MovieContainer>
        )))}
             </ListContainer>

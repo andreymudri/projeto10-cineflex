@@ -4,24 +4,58 @@ import SeatsPage from "./pages/SeatsPage/SeatsPage"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
 import {useState} from "react";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 export default function App() {
+    // eslint-disable-next-line no-unused-vars
     const [movies, setMovies] = useState([])
     const [sessions, setSessions] = useState([])
+    const [seats, setSeats] = useState([])
+    const [selected, setSelected] = useState([])
+    const [nome, setNome] = useState('')
+    const [cpf, setCpf] = useState('')
+    const [poltrona, setPoltrona] = useState([])
     return (
         <>
-           <NavContainer>CINEFLEX</NavContainer>
-           <SessionsPage
+            <NavContainer>CINEFLEX</NavContainer>
+            <BrowserRouter>
+            <Routes>
+
+                              <Route path="/" element={<HomePage
+                movies={movies}
+                setMovies={setMovies} /> }/>
+
+          <Route path='/sessoes/:idFilme' element={<SessionsPage
             sessions={sessions}
                 setSessions={setSessions}
                 movies={movies}
-            />
- {/*            <HomePage
-                movies={movies}
-                setMovies={setMovies} />
-            <SeatsPage />
+            /> } />
 
-            <SuccessPage /> */}
+          <Route path='/assentos/:idSessao' element={<SeatsPage
+
+                    selected={selected}
+                    setSelected={setSelected}
+                    setNome={setNome}
+                        setCpf={setCpf}
+                        nome ={nome}
+                        cpf={cpf}
+                        seats={seats}
+                        setSeats={setSeats}
+                        poltrona={poltrona}
+                        setPoltrona={setPoltrona}
+                />} />
+
+                    <Route path='/sucesso' element={<SuccessPage
+                    movies ={movies}
+                    sessions ={sessions}
+                    selected ={selected}
+                    nome ={nome}
+                    cpf={cpf}                    
+                        seats={seats}
+                        poltrona={poltrona}
+
+                    />} />
+                </Routes>
+                </BrowserRouter>
         </>
     )
 }

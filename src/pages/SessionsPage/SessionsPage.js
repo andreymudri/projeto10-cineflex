@@ -1,14 +1,15 @@
 import styled from "styled-components"
 import { useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 export default function SessionsPage(props) {
     const {sessions, setSessions} = props;
     /*     const movID = props.movies.id; */
-    const movID = 2;
+    const {idFilme} = useParams();
     useEffect(() => {
-        const url = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${movID}/showtimes`;
+        const url = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`;
 		const requisicao = axios.get(url);
-
         requisicao.then(resposta => {
             setSessions(resposta.data);
 
@@ -27,7 +28,7 @@ export default function SessionsPage(props) {
             <SessionContainer key={sessao.id}>
            {sessao.weekday} {sessao.date}
                             <ButtonsContainer>
-                       {sessao.showtimes.map(times => <button key={times.id}  data-test="showtime">{times.name}</button>)}         
+                       {sessao.showtimes.map(times => <Link to={`/assentos/${times.id}`} key={times.id}><button   data-test="showtime">{times.name}</button></Link>)}         
             </ButtonsContainer>
         </SessionContainer>
  
