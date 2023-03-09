@@ -65,7 +65,7 @@ export default function SeatsPage(props) {
                       : assento.isAvailable
                       ? "available"
                       : "unavailable"
-                  } key={index} disabled={!assento.isAvailable} onClick={() => handleseat(assento.id, assento.isAvailable, assento.name)} >{assento.name}</SeatItem>
+                  } key={index} disabled={!assento.isAvailable} onClick={() => handleseat(assento.id, assento.isAvailable, assento.name)} data-test="seat">{assento.name}</SeatItem>
 
        )))}
 
@@ -88,15 +88,15 @@ export default function SeatsPage(props) {
 
             <FormContainer>
                 Nome do Comprador:
-                <input placeholder="Digite seu nome..." onChange={e => setNome(e.target.value)}/>
+                <input placeholder="Digite seu nome..." onChange={e => setNome(e.target.value)} data-test="client-name" />
 
                 CPF do Comprador:
-                <input placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)}/>
+                <input placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)} data-test="client-cpf"/>
 
-                <Link to='/sucesso'><button onClick={()=> handlereservation()}>Reservar Assento(s)</button></Link>
+                <Link to='/sucesso'><button onClick={()=> handlereservation()} data-test="book-seat-btn">Reservar Assento(s)</button></Link>
             </FormContainer>
 
-            <FooterContainer>
+            <FooterContainer data-test="footer">
                 <div>
                     <img src={seats.movie.posterURL} alt="poster" />
                 </div>

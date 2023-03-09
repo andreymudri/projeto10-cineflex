@@ -25,7 +25,7 @@ export default function SessionsPage(props) {
             <div>
                 {sessions.days.map((sessao) => ( 
         (
-            <SessionContainer key={sessao.id}>
+            <SessionContainer key={sessao.id} data-test="movie-day" >
            {sessao.weekday} {sessao.date}
                             <ButtonsContainer>
                        {sessao.showtimes.map(times => <Link to={`/assentos/${times.id}`} key={times.id}><button   data-test="showtime">{times.name}</button></Link>)}         
@@ -35,7 +35,7 @@ export default function SessionsPage(props) {
        )))}
             </div>
 
-            <FooterContainer>
+            <FooterContainer data-test="footer">
                 <div>
                     <img src={sessions.posterURL} alt="poster" />
                 </div>
