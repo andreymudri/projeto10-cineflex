@@ -88,10 +88,10 @@ export default function SeatsPage(props) {
 
             <FormContainer>
                 Nome do Comprador:
-                <input type="text" placeholder="Digite seu nome..." onChange={e => setNome(e.target.value)} data-test="client-name" />
+                <input type="text" placeholder="Digite seu nome..." value = {setNome} onChange={e => setNome(e.target.value)} data-test="client-name" />
 
                 CPF do Comprador:
-                <input type="number" placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)} data-test="client-cpf"/>
+                <input type="number" placeholder="Digite seu CPF..." value = {setCpf} onChange={e => setCpf(e.target.value)} data-test="client-cpf"/>
 
                 <Link to='/sucesso'><button onClick={()=> handlereservation()} data-test="book-seat-btn">Reservar Assento(s)</button></Link>
             </FormContainer>
