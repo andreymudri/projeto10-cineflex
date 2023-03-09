@@ -14,6 +14,7 @@ export default function SeatsPage(props) {
     
     useEffect(() => {
         console.log("selected seats:", selected);
+        console.log("numero do assento:", poltrona);
       }, [selected]);
     useEffect(() => {
         const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`;
@@ -44,7 +45,7 @@ export default function SeatsPage(props) {
         if (assento) {
             if (selected.includes(seatId)) {
                 setSelected(selected.filter((id) => id !== seatId));
-                setPoltrona(selected.filter((poltrona) => poltrona !== banco))
+                setPoltrona(poltrona.filter((poltrona) => poltrona !== banco))
             } else {
                 setSelected([...selected, seatId]);
                 setPoltrona([...poltrona, banco])
@@ -88,10 +89,10 @@ export default function SeatsPage(props) {
 
             <FormContainer>
                 Nome do Comprador:
-                <input type="text" placeholder="Digite seu nome..." value = {nomezinho} onChange={e => setNome(e.target.value)} data-test="client-name" />
+                <input type="text" placeholder="Digite seu nome..." value = {nome} onChange={e => setNome(e.target.value)} data-test="client-name" />
 
                 CPF do Comprador:
-                <input type="number" placeholder="Digite seu CPF..." value = {cpfzinho} onChange={e => setCpf(e.target.value)} data-test="client-cpf"/>
+                <input type="number" placeholder="Digite seu CPF..." value = {cpf} onChange={e => setCpf(e.target.value)} data-test="client-cpf"/>
 
                 <Link to='/sucesso'><button onClick={()=> handlereservation()} data-test="book-seat-btn">Reservar Assento(s)</button></Link>
             </FormContainer>

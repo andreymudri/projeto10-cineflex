@@ -43,9 +43,9 @@ export default function SuccessPage(props) {
         <strong>
           <p>Ingressos</p>
         </strong>
-        {poltrona.map((assento) => (
+        {poltrona.map((poltrona) => (
           <p>
-            Assento {assento} {console.log(poltrona)}
+            Assento {poltrona} {console.log(poltrona)}
           </p>
         ))}
       </TextContainer>
