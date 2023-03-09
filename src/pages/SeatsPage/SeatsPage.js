@@ -41,15 +41,15 @@ export default function SeatsPage(props) {
 		return "Carregando...."
     }
     function handleseat(seatId, assento,banco) {
-        if (assento){
-        if (selected.includes(seatId)) {
-            setSelected(selected.filter((id) => id !== seatId));
-            setPoltrona(selected.filter((poltrona) => poltrona !== banco))
-        } else {
-            setSelected([...selected, seatId]);
-            setPoltrona([...poltrona, banco])
+        if (assento) {
+            if (selected.includes(seatId)) {
+                setSelected(selected.filter((id) => id !== seatId));
+                setPoltrona(selected.filter((poltrona) => poltrona !== banco))
+            } else {
+                setSelected([...selected, seatId]);
+                setPoltrona([...poltrona, banco])
             }
-        }
+        } else alert("assento já escolhido");
         
     }
 
@@ -88,10 +88,10 @@ export default function SeatsPage(props) {
 
             <FormContainer>
                 Nome do Comprador:
-                <input placeholder="Digite seu nome..." onChange={e => setNome(e.target.value)} data-test="client-name" />
+                <input type="text" placeholder="Digite seu nome..." onChange={e => setNome(e.target.value)} data-test="client-name" />
 
                 CPF do Comprador:
-                <input placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)} data-test="client-cpf"/>
+                <input type="number" placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)} data-test="client-cpf"/>
 
                 <Link to='/sucesso'><button onClick={()=> handlereservation()} data-test="book-seat-btn">Reservar Assento(s)</button></Link>
             </FormContainer>

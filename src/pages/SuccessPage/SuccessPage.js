@@ -27,7 +27,9 @@ export default function SuccessPage(props) {
             <TextContainer data-test="seats-info">
                 <strong><p>Ingressos</p></strong>
                 {poltrona.map((assento) => ( 
-                (<p>Assento {assento}</p>
+                    
+                    (<p>Assento {assento} {console.log(poltrona)}</p>
+                    
        )))}
             </TextContainer>
 
