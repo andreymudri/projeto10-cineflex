@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { useParams, Link } from 'react-router-dom';
 export default function SeatsPage(props) {
     const {selected, setSelected, setNome, setCpf,nome,cpf,seats, setSeats, poltrona, setPoltrona } = props
-    const {idSessao} = useParams();
+    const { idSessao } = useParams();
+
     const reserva = {
         ids: selected,
         name: nome,
@@ -92,7 +93,7 @@ export default function SeatsPage(props) {
                 CPF do Comprador:
                 <input placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)}/>
 
-                <Link to='/'></Link><button onClick={()=> handlereservation()}>Reservar Assento(s)</button><Link/>
+                <Link to='/sucesso'><button onClick={()=> handlereservation()}>Reservar Assento(s)</button></Link>
             </FormContainer>
 
             <FooterContainer>

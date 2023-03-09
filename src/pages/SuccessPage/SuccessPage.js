@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function SuccessPage(props) {
     // eslint-disable-next-line no-unused-vars
-    const {setMovies, setSessions, setSeats, setSelected, setNome, setCpf,nome,cpf} = props
+    const {setMovies, setSessions, setSeats, setSelected, setNome, setCpf,nome,cpf,seats,poltrona} = props
     function wipeData() {
         setMovies = ([]);
         setSessions = ([]);
@@ -20,15 +20,15 @@ export default function SuccessPage(props) {
 
             <TextContainer>
                 <strong><p>Filme e sessão</p></strong>
-                <p>Tudo em todo lugar ao mesmo tempo</p>
-                <p>03/03/2023 - 14:00</p>
+                <p>{seats.movie.title !== '' ? seats.movie.title : 'Erro'}</p>
+                <p>{seats.day.date} - {seats.name }</p>
             </TextContainer>
 
             <TextContainer>
                 <strong><p>Ingressos</p></strong>
-                <p>Assento 01</p>
-                <p>Assento 02</p>
-                <p>Assento 03</p>
+                {poltrona.map((assento) => ( 
+                (<p>Assento {assento}</p>
+       )))}
             </TextContainer>
 
             <TextContainer>
